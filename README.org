@@ -1,0 +1,4 @@
+* Einführung in das Haskell-Web-Framework IHP
+
+Beispiel-Repository zu meinem [[https://bobkonf.de/2023/lutz.html][BOBKonf2022-Tutorial]] über die Integrated
+Haskell Platform (IHP).
