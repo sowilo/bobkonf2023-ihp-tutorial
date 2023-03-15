@@ -55,3 +55,12 @@ instance Controller ContactsController where
 
 buildContact contact = contact
     |> fill @["name", "email", "phone", "dateOfBirth"]
+    |> validateField #name nonEmpty
+    |> validateField #email nonEmpty
+    |> emptyValueToNothing #phone
+    |> validateField #phone isPhoneNumber'
+    where
+        isPhoneNumber' :: Validator (Maybe Text)
+        isPhoneNumber' = \case
+            Nothing -> Success
+            Just value -> isPhoneNumber value
