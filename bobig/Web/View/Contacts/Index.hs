@@ -58,6 +58,3 @@ renderContact today contact = [hsx|
 
         cake = (icon FontAwesome "cake-candles")
                    { attributes = [Blaze.style "cursor:default; color:gray"] }
-
-instance ToHtml Day where
-  toHtml date = [hsx|{formatTime defaultTimeLocale "%d.%m.%Y" date}|]

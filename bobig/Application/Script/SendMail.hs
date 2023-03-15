@@ -3,7 +3,7 @@ module Application.Script.SendMail where
 
 import Application.Script.Prelude hiding (run)
 import Web.Mail.Contacts.HappyBirthday (HappyBirthdayMail (..))
-import Application.Domain (thisYearsBirthday)
+import Application.Domain (thisYearsBirthday, eqDate)
 
 run :: Script
 run = do
@@ -11,6 +11,6 @@ run = do
     contacts <- query @Contact |> fetch
     let withThisYearsBirthday c = (c, thisYearsBirthday today c)
         contacts' =
-            filter ((today ==) . snd) $ withThisYearsBirthday <$> contacts
+            filter ((`eqDate` today) . snd) $ withThisYearsBirthday <$> contacts
         mailsToSend = (HappyBirthdayMail . fst) <$> contacts'
     mapM_ sendMail mailsToSend
