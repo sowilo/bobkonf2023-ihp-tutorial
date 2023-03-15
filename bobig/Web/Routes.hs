@@ -5,5 +5,9 @@ import Web.Types
 
 -- Generator Marker
 instance AutoRoute StaticController
-instance AutoRoute ContactsController
-
+instance AutoRoute ContactsController where
+    allowedMethodsForAction "SendMailAction" = [ POST ]
+    allowedMethodsForAction "CreateContactAction" = [ POST ]
+    allowedMethodsForAction "UpdateContactAction" = [ POST, PATCH ]
+    allowedMethodsForAction "DeleteContactAction" = [ DELETE ]
+    allowedMethodsForAction _ = [ GET, HEAD ]

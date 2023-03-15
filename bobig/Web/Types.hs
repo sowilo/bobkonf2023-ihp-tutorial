@@ -17,4 +17,5 @@ data ContactsController
     | EditContactAction { contactId :: !(Id Contact) }
     | UpdateContactAction { contactId :: !(Id Contact) }
     | DeleteContactAction { contactId :: !(Id Contact) }
+    | SendMailAction { contactId :: !(Id Contact) }
     deriving (Eq, Show, Data)

@@ -9,6 +9,11 @@ import IHP.Pagination.Types
 import Web.Mail.Contacts.HappyBirthday
 
 instance Controller ContactsController where
+    action SendMailAction { contactId } = do
+        contact <- fetch contactId
+        sendMail HappyBirthdayMail { .. }
+        redirectTo ContactsAction
+
     action ContactsAction = do
         (contactsQ, pagination) <- query @Contact
             |> orderBy #name

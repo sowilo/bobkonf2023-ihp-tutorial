@@ -24,7 +24,7 @@ renderContact contact = [hsx|
                 {contact.name}
             </a>
         </td>
-        <td>{edit}{delete}</td>
+        <td>{edit}{delete}{mail}</td>
     </tr>
 |]
     where
@@ -40,3 +40,6 @@ renderContact contact = [hsx|
                 (icon Bootstrap "trash3-fill")
                     { tooltip = "Delete"
                     }
+
+        mail = postButton contact SendMailAction mailIcon
+        mailIcon = (icon Bootstrap "envelope-heart"){tooltip = "Send mail"}
