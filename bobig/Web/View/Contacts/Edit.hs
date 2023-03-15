@@ -18,9 +18,9 @@ instance View EditView where
 renderForm :: Contact -> Html
 renderForm contact = formFor contact [hsx|
     {(textField #name)}
-    {(textField #email)}
-    {(textField #phone)}
-    {(textField #dateOfBirth)}
+    {(emailField #email) {fieldLabel = "Email address"}}
+    {(textField #phone) {fieldLabel = "Phone number"}}
+    {(dateField #dateOfBirth) {fieldLabel = "Date of birth"}}
     {submitButton}
 
 |]

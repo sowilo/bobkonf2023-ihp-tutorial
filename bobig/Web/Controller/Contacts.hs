@@ -13,7 +13,8 @@ instance Controller ContactsController where
         render IndexView { .. }
 
     action NewContactAction = do
-        let contact = newRecord
+        today <- utctDay <$> getCurrentTime
+        let contact = newRecord |> set #dateOfBirth today
         render NewView { .. }
 
     action ShowContactAction { contactId } = do
