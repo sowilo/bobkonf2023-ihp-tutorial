@@ -19,8 +19,24 @@ instance View IndexView where
 renderContact :: Contact -> Html
 renderContact contact = [hsx|
     <tr>
-        <td><a href={ShowContactAction contact.id}>{contact.name}</a></td>
-        <td><a href={EditContactAction contact.id} class="text-muted">Edit</a></td>
-        <td><a href={DeleteContactAction contact.id} class="js-delete text-muted">Delete</a></td>
+        <td>
+            <a href={ShowContactAction contact.id} title="Show">
+                {contact.name}
+            </a>
+        </td>
+        <td>{edit}{delete}</td>
     </tr>
 |]
+    where
+        edit =
+            iconLink
+                (EditContactAction contact.id)
+                (icon FontAwesome "pen")
+                    { tooltip = "Edit"
+                    }
+        delete =
+            iconLinkDelete
+                (DeleteContactAction contact.id)
+                (icon Bootstrap "trash3-fill")
+                    { tooltip = "Delete"
+                    }
