@@ -4,5 +4,6 @@ CREATE TABLE contacts (
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     phone TEXT DEFAULT NULL,
-    date_of_birth DATE NOT NULL
+    date_of_birth DATE NOT NULL,
+    mail_content TEXT DEFAULT NULL
 );
