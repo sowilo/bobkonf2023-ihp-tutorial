@@ -6,6 +6,7 @@ import Web.View.Contacts.New
 import Web.View.Contacts.Edit
 import Web.View.Contacts.Show
 import IHP.Pagination.Types
+import Web.Mail.Contacts.HappyBirthday
 
 instance Controller ContactsController where
     action ContactsAction = do
