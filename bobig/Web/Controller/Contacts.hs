@@ -8,7 +8,9 @@ import Web.View.Contacts.Show
 
 instance Controller ContactsController where
     action ContactsAction = do
-        (contactsQ, pagination) <- query @Contact |> paginate
+        (contactsQ, pagination) <- query @Contact
+            |> orderBy #name
+            |> paginate
         contacts <- contactsQ |> fetch
         render IndexView { .. }
 
