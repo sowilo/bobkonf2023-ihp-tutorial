@@ -5,12 +5,14 @@ import Web.View.Contacts.Index
 import Web.View.Contacts.New
 import Web.View.Contacts.Edit
 import Web.View.Contacts.Show
+import IHP.Pagination.Types
 
 instance Controller ContactsController where
     action ContactsAction = do
         (contactsQ, pagination) <- query @Contact
             |> orderBy #name
-            |> paginate
+            |> paginateWithOptions
+                 (defaultPaginationOptions |> set #maxItems 5)
         contacts <- contactsQ |> fetch
         render IndexView { .. }
 
