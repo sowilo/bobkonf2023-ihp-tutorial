@@ -15,3 +15,11 @@ thisYearsBirthday' year contact =
         (_, _, d') = toGregorian birthday
         birthday = fromGregorian year m d
      in if d == d' then birthday else addDays 1 birthday
+
+upcomingBirthday :: Day -> Contact -> Day
+upcomingBirthday today contact =
+    let (year, _, _) = toGregorian today
+        birthday = thisYearsBirthday' year contact
+     in if today <= birthday
+        then birthday
+        else thisYearsBirthday' (year + 1) contact

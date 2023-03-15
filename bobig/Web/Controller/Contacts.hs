@@ -20,11 +20,12 @@ instance Controller ContactsController where
             |> paginateWithOptions
                  (defaultPaginationOptions |> set #maxItems 5)
         contacts <- contactsQ |> fetch
+        date <- today
         render IndexView { .. }
 
     action NewContactAction = do
-        today <- utctDay <$> getCurrentTime
-        let contact = newRecord |> set #dateOfBirth today
+        date <- today
+        let contact = newRecord |> set #dateOfBirth date
         render NewView { .. }
 
     action ShowContactAction { contactId } = do
