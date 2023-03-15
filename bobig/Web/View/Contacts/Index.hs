@@ -1,7 +1,7 @@
 module Web.View.Contacts.Index where
 
 import Web.View.Prelude
-import Application.Domain (upcomingBirthday)
+import Application.Domain (upcomingBirthday, eqDate)
 import Data.Time.Format
 import qualified Text.Blaze.Html5.Attributes as Blaze
 import IHP.HSX.ToHtml
@@ -33,9 +33,7 @@ renderContact today contact = [hsx|
                 {contact.name}
             </a>
         </td>
-        <td style="text-align:right">
-          {upcomingBirthday today contact}{cake}
-        </td>
+        <td style="text-align:right">{birthday}</td>
         <td style="padding-left:2em">{edit}{delete}{mail}</td>
     </tr>
 |]
@@ -56,5 +54,10 @@ renderContact today contact = [hsx|
         mail = postButton contact SendMailAction mailIcon
         mailIcon = (icon Bootstrap "envelope-heart"){tooltip = "Send mail"}
 
-        cake = (icon FontAwesome "cake-candles")
-                   { attributes = [Blaze.style "cursor:default; color:gray"] }
+        birthday =
+            let birthday = upcomingBirthday today contact
+                color = if birthday `eqDate` today then "black" else "gray"
+             in [hsx|{birthday}{cake color}|]
+        cake color =
+            (icon FontAwesome "cake-candles")
+                { attributes = [Blaze.style $ "cursor:default; color:" <> color] }
