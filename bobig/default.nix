@@ -15,6 +15,7 @@ let
         ];
         otherDeps = p: with p; [
             # Native dependencies, e.g. imagemagick
+            mailhog # dummy SMTP server
         ];
         projectPath = ./.;
         withHoogle = true;
