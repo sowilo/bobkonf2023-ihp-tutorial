@@ -34,3 +34,8 @@ upcomingBirthday today contact =
 
 eqDate :: Birthday -> Day -> Bool
 eqDate (Birthday birthday) date = date == birthday
+
+nextYearsBirthday :: Day -> Contact -> Birthday
+nextYearsBirthday today contact =
+    let (year, _, _) = toGregorian today
+     in thisYearsBirthday' (year + 1) contact
