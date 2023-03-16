@@ -69,9 +69,4 @@ buildContact contact = contact
     |> validateField #name nonEmpty
     |> validateField #email nonEmpty
     |> emptyValueToNothing #phone
-    |> validateField #phone isPhoneNumber'
-    where
-        isPhoneNumber' :: Validator (Maybe Text)
-        isPhoneNumber' = \case
-            Nothing -> Success
-            Just value -> isPhoneNumber value
+    |> validateField #phone (maybeValidate isPhoneNumber)
