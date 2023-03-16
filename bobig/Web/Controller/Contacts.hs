@@ -8,8 +8,16 @@ import Web.View.Contacts.Show
 import IHP.Pagination.Types
 import Web.Mail.Contacts.HappyBirthday
 import Web.View.Contacts.PreviewMail
+import Web.Job.SendMail
+import Application.Domain
 
 instance Controller ContactsController where
+    action ScheduleJobAction { contactId } = do
+        date <- today
+        contact <- fetch contactId
+        scheduleSendMailJob contactId $ unBirthday $ upcomingBirthday date contact
+        redirectTo ContactsAction
+
     action PreviewMailAction { contactId } = do
         contact <- fetch contactId
         setModal PreviewMailView { .. }

@@ -7,6 +7,7 @@ import Web.Types
 instance AutoRoute StaticController
 instance AutoRoute ContactsController where
     allowedMethodsForAction "SendMailAction" = [ POST ]
+    allowedMethodsForAction "ScheduleJobAction" = [ POST ]
     allowedMethodsForAction "CreateContactAction" = [ POST ]
     allowedMethodsForAction "UpdateContactAction" = [ POST, PATCH ]
     allowedMethodsForAction "DeleteContactAction" = [ DELETE ]
