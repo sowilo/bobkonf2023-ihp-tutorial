@@ -3,7 +3,8 @@ module Application.Script.SendMail where
 
 import Application.Script.Prelude hiding (run)
 import Web.Mail.Contacts.HappyBirthday (HappyBirthdayMail (..))
-import Application.Domain (thisYearsBirthday, eqDate)
+import Application.Domain.Birthday (thisYearsBirthday, eqDate)
+import Application.Domain.Mail
 
 run :: Script
 run = do

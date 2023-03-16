@@ -9,7 +9,8 @@ import IHP.Pagination.Types
 import Web.Mail.Contacts.HappyBirthday
 import Web.View.Contacts.PreviewMail
 import Web.Job.SendMail
-import Application.Domain
+import Application.Domain.Birthday
+import Application.Domain.Mail
 
 instance Controller ContactsController where
     action ScheduleJobAction { contactId } = do

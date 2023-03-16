@@ -1,4 +1,4 @@
-module Application.Domain where
+module Application.Domain.Birthday where
 
 import IHP.Prelude
 import Generated.Types

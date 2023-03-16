@@ -1,7 +1,7 @@
 module Web.View.Contacts.Index where
 
 import Web.View.Prelude
-import Application.Domain (upcomingBirthday, eqDate)
+import Application.Domain.Birthday (upcomingBirthday, eqDate)
 import Data.Time.Format
 import IHP.HSX.ToHtml
 

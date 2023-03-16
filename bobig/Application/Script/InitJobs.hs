@@ -2,7 +2,7 @@
 module Application.Script.InitJobs where
 
 import Application.Script.Prelude hiding (run)
-import Application.Domain
+import Application.Domain.Birthday
 import Web.Job.SendMail
 
 run :: Script

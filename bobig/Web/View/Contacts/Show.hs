@@ -1,7 +1,7 @@
 module Web.View.Contacts.Show where
 import Web.View.Prelude
 import Web.Mail.Contacts.HappyBirthday
-import Application.Domain
+import Application.Domain.Birthday
 
 data ShowView = ShowView { contact :: Contact, date :: Day }
 
