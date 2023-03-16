@@ -65,8 +65,10 @@ instance Controller ContactsController where
         redirectTo ContactsAction
 
 buildContact contact = contact
-    |> fill @["name", "email", "phone", "dateOfBirth"]
+    |> fill @["name", "email", "phone", "dateOfBirth", "mailContent"]
     |> validateField #name nonEmpty
     |> validateField #email nonEmpty
     |> emptyValueToNothing #phone
     |> validateField #phone (maybeValidate isPhoneNumber)
+    |> emptyValueToNothing #mailContent
+    |> validateField #mailContent (maybeValidate validMarkdown)

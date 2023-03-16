@@ -10,13 +10,4 @@ instance BuildMail HappyBirthdayMail where
       Address { addressName = Just contact.name,
                 addressEmail = contact.email }
     from = "hi@example.com"
-    html HappyBirthdayMail { .. } = [hsx|
-        Dear {contact.name}
-        <br />
-        <br />
-        Wishing you a very happy birthday and a splendid year ahead.
-        The day is all yours — have fun!
-        <br />
-        <br />
-        Cheers
-    |]
+    html HappyBirthdayMail { .. } = renderBirthdayMail contact

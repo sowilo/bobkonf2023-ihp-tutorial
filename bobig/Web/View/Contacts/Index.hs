@@ -33,6 +33,7 @@ renderContact today contact = [hsx|
             </a>
         </td>
         <td style="text-align:right">{birthday}</td>
+        <td>{customMsg}</td>
         <td style="padding-left:2em">{edit}{delete}{mail}</td>
     </tr>
 |]
@@ -60,6 +61,12 @@ renderContact today contact = [hsx|
                         else "color:gray"
                 cakeIcon = plainIcon (icon FontAwesome "cake-candles"){styles = [color]}
              in [hsx|{birthday}{cakeIcon}|]
+
+        msgIcon = (icon Bootstrap "postcard-heart"){tooltip="Custom Mail"}
+        customMsg =
+            case contact.mailContent of
+                Nothing -> Nothing
+                Just _ -> Just $ plainIcon msgIcon
 
         plainIcon icon@(Icon{styles = other}) =
             icon{styles = "cursor:default" : other}
