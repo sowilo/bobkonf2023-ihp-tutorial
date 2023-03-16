@@ -56,6 +56,7 @@ data Icon = Icon
     , lib        :: IconLibrary
     , tooltip    :: Maybe Text
     , classes    :: [Text]
+    , styles     :: [Text]
     , attributes :: [Blaze.Attribute]
     }
 
@@ -70,6 +71,7 @@ icon library name =
          , tooltip = Nothing
          , classes = []
          , attributes = []
+         , styles = []
          }
 
 iconLink :: HasPath a => a -> Icon -> IconLink a
@@ -97,5 +99,7 @@ toAttribute Icon{..} =
         FontAwesome -> [ "fa", "fa-" <> name ]
         Bootstrap -> [ "bi", "bi-" <> name ]
       cls = Blaze.textValue $ intercalate " " $ ["btn"] <> libClasses <> classes
-      attrs = Blaze.class_ cls : attributes
+      sts = if null styles
+          then [] else [Blaze.style $ Blaze.textValue $ intercalate ";" $ styles]
+      attrs = Blaze.class_ cls : (sts <> attributes)
    in mconcat attrs

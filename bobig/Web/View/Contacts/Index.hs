@@ -3,7 +3,6 @@ module Web.View.Contacts.Index where
 import Web.View.Prelude
 import Application.Domain (upcomingBirthday, eqDate)
 import Data.Time.Format
-import qualified Text.Blaze.Html5.Attributes as Blaze
 import IHP.HSX.ToHtml
 
 data IndexView = IndexView
@@ -56,8 +55,11 @@ renderContact today contact = [hsx|
 
         birthday =
             let birthday = upcomingBirthday today contact
-                color = if birthday `eqDate` today then "black" else "gray"
-             in [hsx|{birthday}{cake color}|]
-        cake color =
-            (icon FontAwesome "cake-candles")
-                { attributes = [Blaze.style $ "cursor:default; color:" <> color] }
+                color = if birthday `eqDate` today
+                        then "color:black"
+                        else "color:gray"
+                cakeIcon = plainIcon (icon FontAwesome "cake-candles"){styles = [color]}
+             in [hsx|{birthday}{cakeIcon}|]
+
+        plainIcon icon@(Icon{styles = other}) =
+            icon{styles = "cursor:default" : other}
