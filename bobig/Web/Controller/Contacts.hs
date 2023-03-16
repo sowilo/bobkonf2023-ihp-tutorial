@@ -36,7 +36,9 @@ instance Controller ContactsController where
 
     action ShowContactAction { contactId } = do
         contact <- fetch contactId
-        render ShowView { .. }
+        date <- today
+        setModal ShowView { .. }
+        jumpToAction ContactsAction
 
     action EditContactAction { contactId } = do
         contact <- fetch contactId
