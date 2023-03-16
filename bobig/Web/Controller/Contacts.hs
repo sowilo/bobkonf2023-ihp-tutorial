@@ -34,6 +34,11 @@ instance Controller ContactsController where
             |> paginateWithOptions
                  (defaultPaginationOptions |> set #maxItems 5)
         contacts <- contactsQ |> fetch
+        let filterNotStarted = filterWhere (#status, JobStatusNotStarted)
+        contacts <- contactsQ
+          |> fetch
+          >>= pure . map (modify #sendMailJobs filterNotStarted)
+          >>= collectionFetchRelated #sendMailJobs
         date <- today
         render IndexView { .. }
 

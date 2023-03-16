@@ -5,8 +5,10 @@ import Application.Domain (upcomingBirthday, eqDate)
 import Data.Time.Format
 import IHP.HSX.ToHtml
 
+type ContactWithJobs = Include "sendMailJobs" Contact
+
 data IndexView = IndexView
-    { contacts :: [Contact]
+    { contacts :: [ContactWithJobs]
     , date :: Day
     , pagination :: Pagination
     }
@@ -24,7 +26,7 @@ instance View IndexView where
         </div>
     |]
 
-renderContact :: Day -> Contact -> Html
+renderContact :: Day -> ContactWithJobs -> Html
 renderContact today contact = [hsx|
     <tr>
         <td>
