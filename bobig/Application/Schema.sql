@@ -16,5 +16,9 @@ CREATE TABLE send_mail_jobs (
     attempts_count INT DEFAULT 0 NOT NULL,
     locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     locked_by UUID DEFAULT NULL,
-    run_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+    run_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    contact_id UUID NOT NULL,
+    date_to_send DATE NOT NULL
 );
+CREATE INDEX send_mail_jobs_contact_id_index ON send_mail_jobs (contact_id);
+ALTER TABLE send_mail_jobs ADD CONSTRAINT send_mail_jobs_ref_contact_id FOREIGN KEY (contact_id) REFERENCES contacts (id) ON DELETE CASCADE;
