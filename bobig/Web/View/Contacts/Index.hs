@@ -34,9 +34,9 @@ renderContact today contact = [hsx|
                 {contact.name}
             </a>
         </td>
-        <td style="text-align:right">{birthday}</td>
+        <td style="text-align:right">{birthday}{job}</td>
         <td>{customMsg <$> contact.mailContent}</td>
-        <td style="padding-left:2em">{edit}{delete}{mail}{job}</td>
+        <td style="padding-left:2em">{edit}{delete}{mail}</td>
     </tr>
 |]
     where
@@ -56,7 +56,10 @@ renderContact today contact = [hsx|
         mail = postButton contact SendMailAction mailIcon
         mailIcon = (icon Bootstrap "envelope-heart"){tooltip = "Send mail"}
 
-        job = postButton contact ScheduleJobAction jobIcon
+        job =
+            case contact.sendMailJobs of
+                [] -> postButton contact ScheduleJobAction jobIcon
+                _ -> [hsx|{plainIcon (icon Bootstrap "envelope-heart")}|]
         jobIcon = (icon Bootstrap "clock"){tooltip = "Schedule job"}
 
         birthday =
