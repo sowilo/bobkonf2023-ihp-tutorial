@@ -12,19 +12,19 @@ instance ToHtml Birthday where
   toHtml (Birthday date) =
       [hsx|{formatTime defaultTimeLocale "%d.%m.%Y" date}|]
 
-thisYearsBirthday :: Day -> Contact -> Birthday
+thisYearsBirthday :: forall a. Day -> Contact' a -> Birthday
 thisYearsBirthday today contact =
     let (year, _, _) = toGregorian today
      in thisYearsBirthday' year contact
 
-thisYearsBirthday' :: Year -> Contact -> Birthday
+thisYearsBirthday' :: forall a. Year -> Contact' a -> Birthday
 thisYearsBirthday' year contact =
     let (_, m, d) = toGregorian contact.dateOfBirth
         (_, _, d') = toGregorian birthday
         birthday = fromGregorian year m d
      in Birthday $ if d == d' then birthday else addDays 1 birthday
 
-upcomingBirthday :: Day -> Contact -> Birthday
+upcomingBirthday :: forall a. Day -> Contact' a -> Birthday
 upcomingBirthday today contact =
     let (year, _, _) = toGregorian today
         birthday@(Birthday date) = thisYearsBirthday' year contact
@@ -35,7 +35,7 @@ upcomingBirthday today contact =
 eqDate :: Birthday -> Day -> Bool
 eqDate (Birthday birthday) date = date == birthday
 
-nextYearsBirthday :: Day -> Contact -> Birthday
+nextYearsBirthday :: forall a. Day -> Contact' a -> Birthday
 nextYearsBirthday today contact =
     let (year, _, _) = toGregorian today
      in thisYearsBirthday' (year + 1) contact
