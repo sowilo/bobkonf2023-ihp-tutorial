@@ -7,8 +7,14 @@ import Web.View.Contacts.Edit
 import Web.View.Contacts.Show
 import IHP.Pagination.Types
 import Web.Mail.Contacts.HappyBirthday
+import Web.View.Contacts.PreviewMail
 
 instance Controller ContactsController where
+    action PreviewMailAction { contactId } = do
+        contact <- fetch contactId
+        setModal PreviewMailView { .. }
+        jumpToAction ContactsAction
+
     action SendMailAction { contactId } = do
         contact <- fetch contactId
         sendMail HappyBirthdayMail { .. }

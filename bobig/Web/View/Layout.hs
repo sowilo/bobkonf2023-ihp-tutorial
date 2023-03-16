@@ -24,6 +24,7 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     <div class="container mt-4">
         {renderFlashMessages}
         {inner}
+        {modal}
     </div>
 </body>
 |]
